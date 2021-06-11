@@ -1,0 +1,35 @@
+
+<div class="login-container">
+  <b>E-mail Id:  </b>
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your email</mat-label>
+    <input matInput placeholder="pat@example.com" [(ngModel)]='l.emailid' [formControl]="email" required>
+    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <br>
+  <b>Password: </b>
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your password</mat-label>
+    <input matInput [(ngModel)]='l.password' [type]="hide ? 'password' : 'text'" required>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+       
+  <br/>
+                
+  <br/><mat-radio-group (change)="onChange($event)">
+    <mat-radio-button *ngFor="let typ of types" [value]="typ">{{typ}} 
+      </mat-radio-button>
+    </mat-radio-group>    
+    <br/>
+    <nav>
+     <br/>      
+    <small class ="text-primary" (click)="gotoforgotpass()" >Forgot your password?</small>
+          
+    </nav>
+      
+      <router-outlet> </router-outlet>
+        <br/><button (click)='submit()'>LogIn</button>
+       
+  <br/><p>{{xyz}}</p>
