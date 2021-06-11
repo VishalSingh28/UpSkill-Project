@@ -1,178 +1,116 @@
-
-
-
-
-<!-- Html CSS Practice Basis -->
-
-<!-- <p>registration works!</p>
-
-
-<div class="container">
-    <form>
-        
-        <div class="row">
-            <h4>Name</h4>
-            <div class="input-group">
-                <div class="col-third">
-                    <input type="text" placeholder="First Name" />
-                    <div class="input-icon"><i class="fa fa-user"></i></div>
-                </div>
-                <div class="col-third">
-                    <input type="text" placeholder="Middle Name" />
-                    <div class="input-icon"><i class="fa fa-user"></i></div>
-                </div>
-                <div class="col-third">
-                    <input type="text" placeholder="Last Name" />
-                    <div class="input-icon"><i class="fa fa-user"></i></div>
-                </div>
-            </div>
-            <div class="input-group">
-                <h4>Father Name</h4>
-                <input type="text" placeholder="Father Name" />
-                <div class="input-icon"><i class="fa fa-user"></i></div>
-            </div>
-            <div class="input-group">
-                <h4>Mother Name</h4>
-                <input type="text" placeholder="Mother Name" />
-                <div class="input-icon"><i class="fa fa-user"></i></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-half">
-                <h4>Date of Birth</h4>
-                <div class="input-group">
-                    <div class="col-third">
-                        <input type="text" placeholder="DD" />
-                    </div>
-                    <div class="col-third">
-                        <input type="text" placeholder="MM" />
-                    </div>
-                    <div class="col-third">
-                        <input type="text" placeholder="YYYY" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-half">
-                <h4>Gender</h4>
-                <div class="input-group">
-                    <input type="radio" name="gender" value="male" id="gender-male" />
-                    <label for="gender-male">Male</label>
-                    <input type="radio" name="gender" value="female" id="gender-female" />
-                    <label for="gender-female">Female</label>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-quater">
-                <h4>Category</h4>
-                <div class="input-group">
-                    <input type="radio" name="category" value="sc" id="cate-sc" />
-                    <label for="cate-sc">Sc</label>
-                    <input type="radio" name="category" value="st" id="cate-st" />
-                    <label for="cate-st">St</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-group">
-                <h4>Education details</h4>
-                <select>
-                    <option>2015</option>
-                    <option>2016</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row">
-            <h4>Terms and Conditions</h4>
-            <div class="input-group">
-                <input type="checkbox" id="terms" />
-                <label for="terms">I accept the terms and conditions for signing up to this service, and hereby confirm
-                    I have read the privacy policy.</label>
-            </div>
-        </div>
-    </form>
-</div> -->
-
-
-<div class="container tb-10">
-    <form (ngSubmit)="submit()" [formGroup]="multistep">
-      <div *ngIf="step == 1" formGroupName="userDetails">
-        <h4>User Details</h4>
-        <div class="form-group">
-          <label for="exampleInputEmail1">First Name</label>
-          <input type="text" class="form-control" formControlName="fname"  id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="First Name">
-        <!-- <span class="text-danger" *ngIf="submitted && userDetails.fname.errors?.required">Please enter your first name</span> -->
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Last Name</label>
-          <input type="text" class="form-control" formControlName="lname" id="exampleInputPassword1" placeholder="Last Name">
-        </div>
-      </div>
-      <div *ngIf="step == 2" formGroupName="contactDetails">
+<div class="container mt-4">
+    <h2>UpSkill</h2>
+    <form class="mt-4" (ngSubmit)="onFormSubmitted(formResult)" #formResult="ngForm">
   
-        <h4>Contact Details</h4>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email</label>
-          <input type="text" class="form-control" formControlName="email"  id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="Email">
-            <!-- <span class="text-danger" *ngIf="submitted && contactDetails.email.errors?.required">Please enter your email</span> -->
+      <div class="row">
   
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Contact Number</label>
-          <input type="text" class="form-control" formControlName="contactNumber" id="exampleInputPassword1" placeholder="Contact Number" name="contact">
-  
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Address</label>
-          <textarea class="form-control" formControlName="address" id="exampleInputPassword1" placeholder="Address"></textarea>
-  
-        </div>
-      </div>
-      <div *ngIf="step == 3" formGroupName="personalDetails">
-        <h4>Personal Details</h4>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Gender</label>
-          <select class="form-control" formControlName="gender">
-            <option value="null">Select Ony One</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-  
-          </select>
-        </div>
-        <div class="form-group">
-         
-          <div class="form-check form-check-inline">
-            Education
+        <div class="col-sm-6">
+          <div
+            [ngClass]="{'form-group': true, 'was-validated': firstName.invalid && (firstName.dirty || firstName.touched)}">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" ngModel pattern="[a-zA-Z]+"
+              minlength="2" maxlength="30" required #firstName="ngModel">
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+              <span *ngIf="firstName.errors?.required" class="text-danger">
+                First Name is required.
+              </span>
+              <span *ngIf="firstName.errors?.minlength || firstName.errors?.maxlength" class="text-danger">
+                First Name must be at least 2 characters long and at most 30 characters long.
+              </span>
+              <span *ngIf="firstName.errors?.pattern" class="text-danger">
+                First Name must contain only letters.
+              </span>
+            </div>
           </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="education" id="inlineRadio1" value="SSC">
-                <label class="form-check-label" for="inlineRadio1">SSC</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="education" id="inlineRadio2" value="HSC">
-                <label class="form-check-label" for="inlineRadio2">HSC</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="education" id="inlineRadio3" value="Graduate">
-                <label class="form-check-label" for="inlineRadio3">Graduate</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="education" id="inlineRadio3" value="Post Graduate">
-                <label class="form-check-label" for="inlineRadio3">Post Graduate</label>
-              </div>
+  
+          <div
+            [ngClass]="{'form-group': true, 'was-validated': lastName.invalid && (lastName.dirty || lastName.touched)}">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" ngModel required #lastName="ngModel">
+            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+              <span *ngIf="lastName.errors?.required" class="text-danger">
+                Last Name is required.
+              </span>
+            </div>
+          </div>
+  
+          <div [ngClass]="{'form-group': true, 'was-validated': email.invalid && (email.dirty || email.touched)}">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" ngModel email required #email="ngModel">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)">
+              <span *ngIf="email.errors?.required" class="text-danger">
+                Email is required.
+              </span>
+              <span *ngIf="email.errors?.email" class="text-danger">
+                Email is invalid.
+              </span>
+            </div>
+          </div>
+  
+          <div
+            [ngClass]="{'form-group': true, 'was-validated': birthDate.invalid && (birthDate.dirty || birthDate.touched)}">
+            <label for="birthDate">Date of Birth</label>
+            <input type="date" class="form-control" id="birthDate" name="birthDate" ngModel date required
+              #birthDate="ngModel">
+            <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)">
+              <span *ngIf="birthDate.errors?.required" class="text-danger">
+                Date of Birth is required.
+              </span>
+            </div>
+          </div>
   
         </div>
   
+        <div class="col-sm-6">
+  
+          <div [ngClass]="{'form-group': true, 'was-validated': attachment.invalid && attachment.touched}">
+            <label for="attachment">Attachment</label>
+            <input type="file" class="form-control" id="attachment" name="attachment" ngModel #attachment="ngModel"
+              required>
+            <div *ngIf="attachment.invalid && attachment.touched">
+              <span *ngIf="attachment.errors?.required" class="text-danger">
+                Attachment is required.
+              </span>
+            </div>
+          </div>
+  
+          <div [ngClass]="{'form-group': true, 'was-validated': country.invalid && (country.dirty || country.touched)}">
+            <label for="country">Country</label>
+            <!-- <select class="form-control" id="country" (change)="onCountrySelected($event.target.value)" name="country"
+              ngModel #country="ngModel" required> -->
+              <select class="form-control" id="country"  name="country"
+              ngModel #country="ngModel" required>
+              <option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
+            </select>
+            <div *ngIf="country.invalid && (country.dirty || country.touched)">
+              <span *ngIf="country.errors?.required" class="text-danger">
+                Country is required.
+              </span>
+            </div>
+          </div>
+  
+          <div *ngIf="selectedCities != null && selectedCities.length > 0"
+            [ngClass]="{'form-group': true, 'was-validated': city.invalid && (city.dirty || city.touched)}">
+            <label for="city">City</label>
+            <select class="form-control" id="city" name="city" ngModel #city="ngModel" required>
+              <option *ngFor="let city of selectedCities" [value]="city.id">{{city.name}}</option>
+            </select>
+            <div *ngIf="city.invalid && (city.dirty || city.touched)">
+              <span *ngIf="city.errors?.required" class="text-danger">
+                City is required.
+              </span>
+            </div>
+          </div>
+  
+          
+        </div>
       </div>
-      <a class="btn btn-primary mx-2" *ngIf="step != 1" (click)="previous()">Previous</a>
-      <button type="submit" class="btn btn-primary mx-2" *ngIf="step != 3">Next</button>
-      <button type="submit" class="btn btn-primary mx-2" *ngIf="step == 3">Submit</button>
-      <br>
-      <pre>{{multistep.value | json}}</pre>
+  
+      <div class="row mt-4">
+        <div class="mx-auto">
+          <button type="submit" class="btn btn-success" [disabled]="formResult.invalid">Submit</button>
+        </div>
+      </div>
     </form>
+  
   </div>

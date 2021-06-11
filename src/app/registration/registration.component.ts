@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Country } from '../country';
+import { City } from '../city';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
@@ -9,55 +12,30 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
 
-  step: any = 1;
-  submitted: any = false;
-  multistep = new FormGroup({
-       userDetails: new FormGroup({
-           fname: new FormControl('',Validators.required),
-           lname: new FormControl('')
-       }),
-       contactDetails: new FormGroup({
-        email: new FormControl('',Validators.required),
-        address: new FormControl(''),
-        contactNumber: new FormControl(''),
-    }),
-    personalDetails: new FormGroup({
-      gender: new FormControl('null'),
-      education: new FormControl('')
-  })
-  })
-  constructor(private route: Router) { }
+  
+  public countries:any;
+  public cities:any;
+  public selectedCities:any;
 
-  ngOnInit(): void {
+  constructor() { }
+
+  ngOnInit() {
+    this.countries = [new Country(1, "Poland"), new Country(2, "UK"), new Country(3, "Germany")];
+    this.cities = [new City(1, "Warsaw", 1), new City(2, "Lodz", 1),
+    new City(3, "London", 2), new City(4, "Manchester", 2),
+    new City(5, "Berlin", 3), new City(5, "Munich", 3)]
   }
 
-  get userDetails() {
-       // return this.multistep.controls['userDetails']['controls'];
-        return this.multistep.controls['userDetails'];
+  onFormSubmitted(formResult: NgForm) {
+    const user = formResult.value;
+    console.log(user);
   }
 
-  get contactDetails() {
-    return this.multistep.controls['contactDetails'];
+  onCountrySelected(countryId: number) {
+    this.selectedCities = this.cities.filter((item: City) => {
+      return item.countryId == countryId
+    });
+  }
+
 }
 
-  submit() {  
-      this.submitted = true;
-      if(this.multistep.controls.userDetails.invalid && this.step == 1) {
-        return;
-      }
-      if(this.multistep.controls.contactDetails.invalid && this.step == 2) {
-        return;
-      }
-      this.step = this.step + 1;
-      if(this.step == 4) {
-          this.route.navigate(['/thankyou'])
-      }
-  }
-
-  previous() {
-    this.step = this.step - 1;
-  }
-
-
-
-}
