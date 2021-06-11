@@ -1,0 +1,64 @@
+
+.imgfixing
+{
+    height: 500px;
+    width: 345px;
+}
+
+
+
+.column {
+    float: left;
+    }
+
+    /* Set width length for the left, right and middle columns */
+    .left {
+    width: 25%;
+    margin-left: 110px;
+    margin-top: 50px;
+    height:500px;
+    }
+
+    .middle {
+    width: 60%;
+    margin-top: 50px;
+    height:500px;
+    }
+    
+   
+
+    .row:after {
+    content: "";
+    display: table;
+    clear: both;
+    }
+
+
+
+
+.imgsz
+{
+    margin-top: 100px;
+    margin-left: 80px;
+    height: 1px;
+    width: 40%; 
+
+}
+
+.headtxt
+{
+    font-size: 25px;
+    padding-top: 5px;
+    font-family: "Times New Roman", Times, serif;
+    color: rgba(5, 15, 22, 0.377);
+    font-weight: bold;
+}
+
+.logosz
+{
+    height: 20%;
+    width: 30%;
+    margin-bottom: 20px;
+
+}
+
